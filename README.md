@@ -12,6 +12,7 @@ Dokumen ini menjelaskan isi website, lokasi file yang perlu diedit, dan langkah 
 - [Menambah atau menghapus halaman](#menambah-atau-menghapus-halaman)
 - [Mengubah tampilan](#mengubah-tampilan)
 - [Menjalankan dan membuat file HTML](#menjalankan-dan-membuat-file-html)
+- [Hosting di GitHub Pages](#hosting-di-github-pages)
 - [Catatan penting](#catatan-penting)
 
 ## Mulai mengedit
@@ -343,6 +344,19 @@ pnpm build:standalone
 ```
 
 Setelah proses berhasil, buka `dist/portfolio.html` dengan browser. Jika file itu sudah pernah dibuat, build standalone akan memperbaruinya dengan isi terbaru. Pertahankan aset dalam folder `dist/` di samping HTML agar foto/video lokal tetap tampil. Route internal di file ini menggunakan hash (misalnya `portfolio.html#/projects` dan `portfolio.html#/about`). Google Fonts memerlukan koneksi internet.
+
+## Hosting di GitHub Pages
+
+Website ini menggunakan Vite dan React, sehingga `index.html` di root adalah kerangka sumber dan tidak bisa dipublikasikan langsung sebagai halaman jadi. Workflow `.github/workflows/deploy-pages.yml` membangun versi standalone, menyalinnya menjadi `dist/index.html`, lalu menerbitkan seluruh folder `dist/` ke GitHub Pages.
+
+Untuk mengaktifkan deployment:
+
+1. Push project ke branch `main`.
+2. Buka **Settings → Pages** di repository GitHub.
+3. Pada **Build and deployment → Source**, pilih **GitHub Actions**.
+4. Buka tab **Actions** dan tunggu workflow **Deploy portfolio to GitHub Pages** berhasil.
+
+Setiap push berikutnya ke `main` akan memicu deployment baru. Versi HTML standalone menggunakan route hash, jadi navigasi dan halaman detail tetap bekerja pada GitHub Pages tanpa aturan rewrite tambahan.
 
 ## Catatan penting
 

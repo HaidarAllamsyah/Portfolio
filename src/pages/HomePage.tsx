@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   ChevronDown,
   ArrowRight,
@@ -115,6 +115,8 @@ const bioParagraphs = siteConfig.bio.trim().split('\n\n').slice(0, 2);
 // ─── HeroSection ─────────────────────────────────────────────────────────────
 
 function HeroSection() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       className="relative flex min-h-screen min-h-[100svh] items-center overflow-hidden"
@@ -235,63 +237,40 @@ function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── Right: Responsive floating glass visual ── */}
+          {/* ── Right: Animated character visual ── */}
           <motion.div
             className="relative flex w-full items-center justify-center py-4 sm:py-6 lg:py-0"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Main visual panel */}
-            <div className="relative w-full max-w-[22rem] sm:max-w-sm">
+            <div className="relative flex w-full max-w-[33rem] items-center justify-center sm:max-w-[39rem] lg:-ml-[7.5%] lg:w-[115%] lg:max-w-none">
               <div
-                className={cn(
-                  'glass-card rounded-2xl p-5 sm:p-8 flex flex-col items-center justify-center gap-3 sm:gap-4',
-                  'min-h-[220px] sm:min-h-[320px]'
-                )}
-              >
-                {/* Lime glow behind visual */}
-                <div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
-                  style={{
-                    boxShadow:
-                      '0 0 80px rgba(168,255,62,0.12), inset 0 0 40px rgba(168,255,62,0.04)',
-                  }}
-                />
-
-                {/* Placeholder visual square */}
-                <div
-                  className={cn(
-                    'relative z-10 flex h-36 w-36 flex-col items-center justify-center gap-2 overflow-hidden rounded-xl sm:h-48 sm:w-48',
-                    'bg-[#111] border border-white/[0.08]',
-                  )}
-                  style={{
-                    boxShadow: '0 0 40px rgba(168,255,62,0.15)',
-                  }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ background: 'rgba(168,255,62,0.12)' }}
-                  >
-                    <Box className="w-5 h-5 text-[#a8ff3e]" />
-                  </div>
-                  <span className="text-sm font-semibold text-white/70 text-center leading-tight px-4">
-                    3D Portfolio Visual
-                  </span>
-                  <span className="text-xs text-white/30 text-center px-4 leading-tight">
-                    Add your hero render here
-                  </span>
-                </div>
-
-                <p className="text-white/40 text-xs text-center">
-                  {siteConfig.title}
-                </p>
-              </div>
+                className="pointer-events-none absolute inset-[12%] rounded-full"
+                aria-hidden="true"
+                style={{
+                  background:
+                    'radial-gradient(ellipse, rgba(168,255,62,0.13) 0%, rgba(97,129,255,0.08) 42%, transparent 72%)',
+                  filter: 'blur(22px)',
+                }}
+              />
+              <motion.img
+                src="/images/profile/Gemini_Generated_Image_w74yiow74yiow74y-cutout.png"
+                alt="Stylized 3D character sitting on a bench and holding a cup"
+                className="relative z-10 h-[32rem] w-full object-contain drop-shadow-[0_16px_30px_rgba(70,75,43,0.2)] sm:h-[38rem] lg:h-[44rem] xl:h-[48rem]"
+                fetchPriority="high"
+                animate={reduceMotion ? undefined : { y: [0, -7, 0], rotate: [0, 0.6, 0] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
 
               {/* Floating badge chips */}
               <motion.div
                 className={cn(
-                  'absolute -top-1 left-2 px-3 py-1.5 rounded-full text-[0.65rem] font-medium sm:-top-4 sm:-left-6 sm:text-xs',
+                  'absolute left-[22%] top-[3%] z-20 rounded-full px-4 py-2 text-sm font-semibold sm:left-[25%] sm:top-[4%] sm:px-6 sm:py-3 sm:text-base',
                   'glass border border-white/[0.12] text-white/80 backdrop-blur-xl'
                 )}
                 animate={{ y: [0, -6, 0] }}
@@ -302,7 +281,7 @@ function HeroSection() {
 
               <motion.div
                 className={cn(
-                  'absolute top-1/2 -right-2 px-3 py-1.5 rounded-full text-[0.65rem] font-medium sm:-right-8 sm:text-xs',
+                  'absolute right-[6%] top-[47%] z-20 rounded-full px-4 py-2 text-sm font-semibold sm:right-[5%] sm:px-6 sm:py-3 sm:text-base',
                   'glass border border-[#a8ff3e]/20 text-[#a8ff3e] backdrop-blur-xl'
                 )}
                 animate={{ y: [0, 6, 0] }}
@@ -313,7 +292,7 @@ function HeroSection() {
 
               <motion.div
                 className={cn(
-                  'absolute -bottom-1 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full text-[0.65rem] font-medium sm:-bottom-4 sm:text-xs',
+                  'absolute bottom-[1%] left-1/2 z-20 -translate-x-1/2 rounded-full px-4 py-2 text-sm font-semibold sm:px-6 sm:py-3 sm:text-base',
                   'glass border border-white/[0.12] text-white/80 backdrop-blur-xl'
                 )}
                 animate={{ y: [0, -4, 0] }}
