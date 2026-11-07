@@ -39,9 +39,9 @@ Dokumen ini menjelaskan isi website, lokasi file yang perlu diedit, dan langkah 
 | `src/index.css` | Warna global, font, latar belakang, efek glass, dan style dasar. |
 | `src/App.css` | Style tambahan aplikasi. |
 | `public/` | Aset publik, termasuk gambar proyek. File di sini dirujuk dengan path seperti `/images/projects/nama-proyek/cover.jpg`. |
-| `index.html` | Kerangka HTML dan metadata dasar yang dipakai saat build. |
+| `index.html` | Halaman standalone hasil build yang dipakai hosting statis dari root repository. |
 | `vite.config.ts`, `vite.standalone.config.ts` | Konfigurasi build website biasa dan build HTML standalone. |
-| `scripts/build-standalone.mjs` | Menggabungkan JavaScript dan CSS menjadi `dist/portfolio.html`, serta menyesuaikan path aset publik. |
+| `scripts/build-standalone.mjs` | Menggabungkan JavaScript dan CSS menjadi `dist/portfolio.html` dan `index.html`, dengan path aset yang sesuai untuk masing-masing lokasi. |
 | `dist/` | Hasil build; dibuat otomatis dan tidak digunakan untuk mengedit konten. |
 
 ## Mengubah isi website
@@ -343,18 +343,17 @@ Untuk membuat website yang dapat dibuka langsung tanpa development server:
 pnpm build:standalone
 ```
 
-Setelah proses berhasil, buka `dist/portfolio.html` dengan browser. Jika file itu sudah pernah dibuat, build standalone akan memperbaruinya dengan isi terbaru. Pertahankan aset dalam folder `dist/` di samping HTML agar foto/video lokal tetap tampil. Route internal di file ini menggunakan hash (misalnya `portfolio.html#/projects` dan `portfolio.html#/about`). Google Fonts memerlukan koneksi internet.
+Setelah proses berhasil, buka `dist/portfolio.html` dengan browser. Build juga memperbarui `index.html` di root, yang dapat dibuka langsung atau dipakai hosting statis dari root repository. Pertahankan folder `dist/` di samping `dist/portfolio.html` agar foto/video lokal tetap tampil. Route internal menggunakan hash (misalnya `portfolio.html#/projects` dan `portfolio.html#/about`). Google Fonts memerlukan koneksi internet.
 
 ## Hosting di GitHub Pages
 
-Website ini menggunakan Vite dan React, sehingga `index.html` di root adalah kerangka sumber dan tidak bisa dipublikasikan langsung sebagai halaman jadi. Workflow `.github/workflows/deploy-pages.yml` membangun versi standalone, menyalinnya menjadi `dist/index.html`, lalu menerbitkan seluruh folder `dist/` ke GitHub Pages.
+Workflow `.github/workflows/deploy-pages.yml` membangun versi standalone, menyalinnya menjadi `dist/index.html`, lalu menerbitkan seluruh folder `dist/` ke GitHub Pages. `pnpm build:standalone` juga membuat `index.html` di root sebagai halaman siap tayang untuk GitHub Pages yang menggunakan branch root sebagai sumber. Halaman root memuat gambar dan media dari `public/`.
 
 Untuk mengaktifkan deployment:
 
-1. Push project ke branch `main`.
-2. Buka **Settings → Pages** di repository GitHub.
-3. Pada **Build and deployment → Source**, pilih **GitHub Actions**.
-4. Buka tab **Actions** dan tunggu workflow **Deploy portfolio to GitHub Pages** berhasil.
+1. Push perubahan ke branch `main`; workflow akan membangun dan menerbitkan folder `dist/`.
+2. Pada repository GitHub, pastikan **Settings → Pages → Build and deployment → Source** menggunakan **GitHub Actions** agar artifact `dist/` dipublikasikan.
+3. Jika sumber Pages menggunakan branch root, `index.html` root yang dihasilkan oleh build standalone tetap dapat ditayangkan langsung.
 
 Setiap push berikutnya ke `main` akan memicu deployment baru. Versi HTML standalone menggunakan route hash, jadi navigasi dan halaman detail tetap bekerja pada GitHub Pages tanpa aturan rewrite tambahan.
 

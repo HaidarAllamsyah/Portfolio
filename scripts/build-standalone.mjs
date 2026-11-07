@@ -6,6 +6,7 @@ const publicDirectory = join(process.cwd(), 'public');
 const scriptPath = join(outputDirectory, 'portfolio.js');
 const stylesheetPath = join(outputDirectory, 'portfolio.css');
 const htmlPath = join(outputDirectory, 'portfolio.html');
+const pagesHtmlPath = join(process.cwd(), 'index.html');
 
 const [bundledScript, bundledStylesheet] = await Promise.all([
   readFile(scriptPath, 'utf8'),
@@ -26,16 +27,17 @@ async function getPublicAssetPaths(directory) {
 }
 
 const publicAssetPaths = await getPublicAssetPaths(publicDirectory);
-const rebasePublicAssetUrls = (content) =>
+const rebasePublicAssetUrls = (content, publicPrefix) =>
   publicAssetPaths.reduce((result, assetPath) => {
     const publicPath = `/${relative(publicDirectory, assetPath).split(sep).join('/')}`;
-    return result.replaceAll(publicPath, `.${publicPath}`);
+    return result.replaceAll(publicPath, `${publicPrefix}${publicPath}`);
   }, content);
 
-const script = rebasePublicAssetUrls(bundledScript);
-const stylesheet = rebasePublicAssetUrls(bundledStylesheet);
+const createHtml = (publicPrefix) => {
+  const script = rebasePublicAssetUrls(bundledScript, publicPrefix);
+  const stylesheet = rebasePublicAssetUrls(bundledStylesheet, publicPrefix);
 
-const html = `<!doctype html>
+  return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -51,7 +53,11 @@ const html = `<!doctype html>
   </body>
 </html>
 `;
+};
 
-await writeFile(htmlPath, html, 'utf8');
+await Promise.all([
+  writeFile(htmlPath, createHtml('.'), 'utf8'),
+  writeFile(pagesHtmlPath, createHtml('./public'), 'utf8'),
+]);
 await Promise.all([rm(scriptPath), rm(stylesheetPath)]);
-console.log(`Created ${htmlPath}`);
+console.log(`Created ${htmlPath} and ${pagesHtmlPath}`);
