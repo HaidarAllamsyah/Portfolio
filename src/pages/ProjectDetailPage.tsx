@@ -35,10 +35,14 @@ import { extractImageAccentColor } from '../utils/media';
 
 const PROJECT_THEME_ACCENTS: Record<string, string> = {
   'red-threshold': '#b83236',
-  'nasihat-mau-di-pos-ronda': '#a9c5ff',
-  '3d-product-modeling-bottle-tumbler': '#246d90',
+  'lho-awas': '#0284c7',
+  virtucare: '#0d9488',
+  'galaxy-mall-treasure-hunt': '#9333ea',
   'antigravity-marketplace': '#7044a5',
   gotcha: '#4b7118',
+  'nasihat-mau-di-pos-ronda': '#a9c5ff',
+  '3d-product-modeling-bottle-tumbler': '#246d90',
+  'smk-senopati-ai-promo': '#d97706',
 };
 
 // ─── Animation Variants ────────────────────────────────────────────────────────

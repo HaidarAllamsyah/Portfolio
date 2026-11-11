@@ -1465,6 +1465,38 @@ body::after {
     linear-gradient(145deg, #f7faef, #edf3e1 58%, #f5f8ee);
 }
 
+.project-theme-lho-awas {
+  --project-surface: #edf7fd;
+  background:
+    radial-gradient(ellipse at 84% 5%, rgba(2, 132, 199, 0.22), transparent 36rem),
+    radial-gradient(ellipse at 12% 60%, rgba(56, 189, 248, 0.14), transparent 34rem),
+    linear-gradient(145deg, #f5fbff, #e9f5fd 58%, #f2f8fc);
+}
+
+.project-theme-galaxy-mall-treasure-hunt {
+  --project-surface: #f7edfd;
+  background:
+    radial-gradient(ellipse at 84% 5%, rgba(147, 51, 234, 0.22), transparent 36rem),
+    radial-gradient(ellipse at 10% 55%, rgba(192, 132, 252, 0.15), transparent 34rem),
+    linear-gradient(145deg, #faf5fe, #f2e7fc 58%, #f8f1fd);
+}
+
+.project-theme-virtucare {
+  --project-surface: #edfbf7;
+  background:
+    radial-gradient(ellipse at 84% 5%, rgba(13, 148, 136, 0.22), transparent 36rem),
+    radial-gradient(ellipse at 10% 55%, rgba(45, 212, 191, 0.14), transparent 34rem),
+    linear-gradient(145deg, #f3fdf9, #e6f9f3 58%, #effaf6);
+}
+
+.project-theme-smk-senopati-ai-promo {
+  --project-surface: #fdf8ed;
+  background:
+    radial-gradient(ellipse at 84% 5%, rgba(217, 119, 6, 0.22), transparent 36rem),
+    radial-gradient(ellipse at 10% 55%, rgba(245, 158, 11, 0.15), transparent 34rem),
+    linear-gradient(145deg, #fffdf7, #fcf4e4 58%, #fbf6ec);
+}
+
 .project-theme-nasihat-mau-di-pos-ronda {
   --project-surface: #0c1424;
   --project-ink: #f4f5f8;

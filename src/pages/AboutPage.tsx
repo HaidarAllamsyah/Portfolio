@@ -2,7 +2,7 @@
 
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Download, Github, Linkedin, Instagram, GraduationCap, MapPin, User } from 'lucide-react';
+import { Download, Github, Linkedin, Instagram, GraduationCap, MapPin } from 'lucide-react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { Container } from '../components/ui/Container';
 import { GlassCard } from '../components/ui/GlassCard';
@@ -83,7 +83,7 @@ export default function AboutPage() {
             variants={stagger}
             initial="hidden"
             animate="visible"
-            className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start"
+            className="flex flex-col lg:flex-row gap-12 lg:gap-12 xl:gap-16 items-start"
           >
             {/* Left — heading & tagline */}
             <motion.div variants={fadeUp} className="flex-1 min-w-0">
@@ -100,14 +100,20 @@ export default function AboutPage() {
               </p>
             </motion.div>
 
-            {/* Right — profile glass card */}
-            <motion.div variants={fadeUp} className="w-full lg:w-80 shrink-0">
-              <GlassCard className="p-6">
-                {/* Avatar placeholder */}
-                <div className="w-20 h-20 rounded-2xl bg-white/[0.06] border border-white/[0.1] flex items-center justify-center mb-5">
-                  <User className="w-9 h-9 text-white/40" />
-                </div>
+            {/* Right — large profile photo beside the profile details */}
+            <motion.div
+              variants={fadeUp}
+              className="flex w-full shrink-0 flex-col items-center gap-6 sm:flex-row sm:items-end lg:w-[36rem] xl:w-[44rem]"
+            >
+              <img
+                src="/images/profile/Foto Haidar.png"
+                alt={siteConfig.name}
+                loading="eager"
+                decoding="async"
+                className="h-auto w-[min(72vw,18rem)] shrink-0 object-contain object-bottom sm:w-56 lg:w-64 xl:w-80"
+              />
 
+              <GlassCard className="w-full min-w-0 flex-1 p-6">
                 <h2 className="text-xl font-bold text-white mb-1">{siteConfig.name}</h2>
                 <p className="text-[#a8ff3e] text-sm font-medium mb-4">{siteConfig.title}</p>
 
