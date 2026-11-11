@@ -181,10 +181,10 @@ function HeroSection() {
               animate="visible"
             >
               {siteConfig.heroHeadline.map((word, i) => (
-                <div key={i} className="overflow-hidden">
+                <div key={i} className="overflow-visible">
                   <motion.span
                     className={cn(
-                      'block text-[clamp(3.15rem,13vw,6rem)] sm:text-8xl md:text-9xl font-black tracking-tight leading-none',
+                      'block text-[clamp(3.15rem,13vw,6rem)] sm:text-8xl md:text-9xl font-black tracking-tight leading-[1.05] pb-1',
                       word === 'in 3D.'
                         ? 'text-gradient-lime'
                         : 'text-white'
